@@ -4,8 +4,8 @@ in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Ben Wilfong.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -81,9 +81,33 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # Done: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # -------------------------------------------------------------------------
+    x_init = circle.center.x
+    y_init = circle.center.y
+
+    x = x_init
+    y = y_init
+    radius = circle.radius
+    for k in range(r):
+        for j in range(3):
+            circ = rg.Circle(rg.Point(x + j*2*radius, y), radius)
+            circ.fill_color = circle.fill_color
+            circ.outline_color = circle.outline_color
+            circ.outline_thickness = circle.outline_thickness
+            circ.attach_to(window)
+            window.render()
+        y += 2*radius
+    for k in range(3):
+        for j in range(c + 3):
+            circ = rg.Circle(rg.Point(x + 2*j*radius, y), radius)
+            circ.fill_color = circle.fill_color
+            circ.outline_color = circle.outline_color
+            circ.outline_thickness = circle.outline_thickness
+            circ.attach_to(window)
+            window.render()
+        y += 2*radius
 
 
 def run_test_draw_wall_on_right():
@@ -122,12 +146,25 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # Done: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # -------------------------------------------------------------------------
+    top_left = rectangle.get_upper_left_corner()
+    lower_right = rectangle.get_lower_right_corner()
+
+    for k in range(n):
+        for j in range(k + 1):
+            rec = rg.Rectangle(rg.Point(top_left.x - j*rectangle.get_width(), top_left.y),
+                               rg.Point(lower_right.x - j*rectangle.get_width(), lower_right.y))
+            rec.attach_to(window)
+            window.render()
+        top_left.y += rectangle.get_height()
+        lower_right.y += rectangle.get_height()
 
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
+
+
 main()
